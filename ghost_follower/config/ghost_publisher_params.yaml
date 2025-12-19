@@ -1,0 +1,23 @@
+# Configuration parameters for Ghost Publisher
+# 
+# This file contains default parameters for the ghost_publisher node
+# which publishes geometry_msgs/Twist messages in a figure-8 pattern.
+
+ghost_publisher:
+  ros__parameters:
+    # Scale factor for linear velocity (m/s or simulation units)
+    # Higher values result in faster movement
+    linear_scale: 0.5
+    
+    # Scale factor for angular velocity (rad/s)
+    # Higher values result in sharper turns
+    angular_scale: 1.0
+    
+    # Frequency of the figure-8 pattern (Hz)
+    # Lower values create a larger, slower figure-8
+    # Higher values create a smaller, faster figure-8
+    frequency: 0.5
+    
+    # Publishing rate (Hz)
+    # Rate at which velocity commands are published
+    publish_rate_hz: 50
