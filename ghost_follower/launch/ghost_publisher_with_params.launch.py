@@ -21,6 +21,13 @@ def generate_launch_description():
     pkg_dir = get_package_share_directory('ghost_follower')
     params_file = os.path.join(pkg_dir, 'config', 'ghost_publisher_params.yaml')
     
+    # Validate that the parameter file exists
+    if not os.path.isfile(params_file):
+        raise FileNotFoundError(
+            f"Parameter file not found: {params_file}\n"
+            f"Please ensure the ghost_follower package is properly installed."
+        )
+    
     # Declare launch argument for custom params file
     params_file_arg = DeclareLaunchArgument(
         'params_file',

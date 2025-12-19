@@ -4,7 +4,7 @@
   <name>ghost_follower</name>
   <version>1.0.0</version>
   <description>ROS 2 package for Ghost Robot follower simulation with Isaac Sim</description>
-  <maintainer email="ghost@robot.com">Ghost Robot Maintainer</maintainer>
+  <maintainer email="maintainer@example.com">Ghost Robot Maintainer</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

@@ -34,6 +34,9 @@ public:
     frequency_ = this->get_parameter("frequency").as_double();
     int publish_rate = this->get_parameter("publish_rate_hz").as_int();
     
+    // Cache time increment to avoid parameter lookup in timer callback
+    time_increment_ = 1.0 / publish_rate;
+    
     // Create publisher for cmd_vel topic
     publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 10);
     
@@ -106,8 +109,8 @@ private:
     // Publish the message
     publisher_->publish(message);
     
-    // Increment time
-    time_ += 1.0 / this->get_parameter("publish_rate_hz").as_int();
+    // Increment time using cached value
+    time_ += time_increment_;
     
     // Log periodically (every 2 seconds)
     if (static_cast<int>(time_ * 10) % 20 == 0) {
@@ -120,6 +123,7 @@ private:
   rclcpp::TimerBase::SharedPtr timer_;
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_;
   double time_;
+  double time_increment_;
   double linear_scale_;
   double angular_scale_;
   double frequency_;

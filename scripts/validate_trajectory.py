@@ -34,7 +34,7 @@ def simulate_figure8(frequency=0.5, duration=20.0, dt=0.02):
     
     return t, x, y, vx, vy
 
-def compute_velocities(vx, vy, linear_scale=0.5, angular_scale=1.0, frequency=0.5):
+def compute_velocities(vx, vy, linear_scale=0.5, angular_scale=1.0, frequency=0.5, dt=0.02):
     """
     Compute linear and angular velocities as done in the C++ code.
     
@@ -44,12 +44,13 @@ def compute_velocities(vx, vy, linear_scale=0.5, angular_scale=1.0, frequency=0.
         linear_scale: Scale factor for linear velocity
         angular_scale: Scale factor for angular velocity
         frequency: Frequency of the pattern
+        dt: Time step
         
     Returns:
         Arrays of linear and angular velocities
     """
     omega = 2.0 * np.pi * frequency
-    t = np.arange(len(vx)) * 0.02  # dt = 0.02
+    t = np.arange(len(vx)) * dt
     
     # Linear velocity magnitude
     linear_vel = linear_scale * np.sqrt(vx**2 + vy**2)
@@ -73,8 +74,9 @@ def main():
     print("=" * 50)
     
     # Simulate the trajectory
-    t, x, y, vx, vy = simulate_figure8(frequency=0.5, duration=20.0)
-    linear_vel, angular_vel = compute_velocities(vx, vy, linear_scale=0.5, angular_scale=1.0, frequency=0.5)
+    dt = 0.02
+    t, x, y, vx, vy = simulate_figure8(frequency=0.5, duration=20.0, dt=dt)
+    linear_vel, angular_vel = compute_velocities(vx, vy, linear_scale=0.5, angular_scale=1.0, frequency=0.5, dt=dt)
     
     # Print statistics
     print(f"\nTrajectory Statistics:")
